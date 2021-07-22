@@ -6,8 +6,6 @@ import DadosPessoais from './DadosPessoais';
 import DadosUsuario from './DadosUsuario';
 import data from '../../data/dados'
 
-
-
 function FormularioCadastro({ aoEnviar }) {
     const [etapaAtual, setEtapaAtual] = useState(0)
     const [dadosColetados, setDados] = useState(data)
