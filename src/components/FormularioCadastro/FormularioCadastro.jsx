@@ -6,8 +6,10 @@ import DadosPessoais from './DadosPessoais';
 import DadosUsuario from './DadosUsuario';
 import data from '../../data/dados'
 
+
+
 function FormularioCadastro({ aoEnviar }) {
-    const [etapaAtual, setEtapaAtual] = useState(2)
+    const [etapaAtual, setEtapaAtual] = useState(0)
     const [dadosColetados, setDados] = useState(data)
 
     // useEffect funciona com as funções do ciclo de vida do class Component
@@ -21,7 +23,12 @@ function FormularioCadastro({ aoEnviar }) {
         <DadosUsuario aoEnviar={coletarDados} dados={dadosColetados} />,
         <DadosPessoais aoEnviar={coletarDados} aoVoltar={voltar} dados={dadosColetados} />,
         <DadosEntrega aoEnviar={coletarDados} aoVoltar={voltar} dados={dadosColetados} />,
-        <Typography variant='h5' align='center'>Obrigado pelo Cadastro!</Typography>
+        <Fragment>
+            <Typography variant='h5' align='center'>Obrigado pelo Cadastro!
+            <img src='http://victorvhpg.github.io/minicurso-react.js/slides/img/logo.png' alt='img'></img>
+            </Typography>
+            
+        </Fragment>
     ];
 
     function coletarDados(dados) {
