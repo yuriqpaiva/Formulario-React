@@ -61,6 +61,7 @@ function DadosUsuario({ aoEnviar, dados }) {
                 type='submit'
                 variant="contained"
                 color='primary'
+                fullWidth
             >
                 Próximo
             </Button>

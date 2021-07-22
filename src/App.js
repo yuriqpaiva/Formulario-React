@@ -18,6 +18,7 @@ class App extends Component {
           variant='h3'
           component='h1'
           align='center'
+          className='titulo'
           >
           Formulário de Cadastro
         </Typography>

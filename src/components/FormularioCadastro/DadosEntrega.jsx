@@ -37,6 +37,7 @@ function DadosEntrega({ aoEnviar, aoVoltar, dados }) {
                 helperText={erros.cep.texto}
                 required
                 type='text'
+                fullWidth
                 variant='outlined'
                 margin='normal'
             />
@@ -63,6 +64,7 @@ function DadosEntrega({ aoEnviar, aoVoltar, dados }) {
                 label='Número'
                 type='number'
                 variant='outlined'
+                fullWidth
                 margin='normal'
             />
 
@@ -76,6 +78,7 @@ function DadosEntrega({ aoEnviar, aoVoltar, dados }) {
                 type='text'
                 variant='outlined'
                 margin='normal'
+                fullWidth
             />
 
             <TextField
@@ -88,6 +91,8 @@ function DadosEntrega({ aoEnviar, aoVoltar, dados }) {
                 type='text'
                 variant='outlined'
                 margin='normal'
+                className='cidade'
+                fullWidth
             />
             <Button
                 onClick={() => {

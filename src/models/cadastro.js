@@ -1,7 +1,7 @@
 function validarCPF(cpf) {
   if (cpf.search(/^[-]?\d*\.?\d+(?:[Ee][-]?\d+)?$/) === -1 && cpf.length !== 0) {
     return { valido: false, texto: 'O CPF deve conter apenas números!' }
-  } else if (cpf.length !== 11 && cpf.length !== 0) {
+  } else if (cpf.length < 11 && cpf.length !== 0) {
     return { valido: false, texto: "O CPF deve ter 11 dígitos" }
   } else {
     return { valido: true, texto: '' }
@@ -41,7 +41,7 @@ function validarSobrenome(sobrenome) {
 function validarCEP(cep) {
   if (cep.search(/^[-]?\d*\.?\d+(?:[Ee][-]?\d+)?$/) === -1 && cep.length !== 0) {
     return { valido: false, texto: 'CEP deve conter apenas números!' }
-  } else if (cep.length !== 8 && cep.length !== 0) {
+  } else if (cep.length < 8 && cep.length !== 0) {
     return { valido: false, texto: "CEP deve ter 8 dígitos" }
   } else {
     return { valido: true, texto: '' }

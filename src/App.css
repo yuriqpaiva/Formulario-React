@@ -4,7 +4,10 @@
 
 body {
   background-color: rgb(71, 170, 209);
-  
+}
+
+.titulo {
+  font-family: 'Roboto', serif;
 }
 
 .container {
