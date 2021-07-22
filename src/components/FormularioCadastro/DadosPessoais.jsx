@@ -3,12 +3,12 @@ import { Button, TextField, FormControlLabel, Switch } from '@material-ui/core';
 import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
 import useErros from '../../hooks/useErros';
 
-function DadosPessoais({ aoEnviar }) {   // Destructuring do props
-    const [nome, setNome] = useState('')
-    const [sobrenome, setSobrenome] = useState('')
-    const [cpf, setCpf] = useState('')
-    const [promocoes, setPromocoes] = useState(true)
-    const [novidades, setNovidades] = useState(true)
+function DadosPessoais({ aoEnviar, aoVoltar, dados }) {   // Destructuring do props
+    const [nome, setNome] = useState(dados.nome)
+    const [sobrenome, setSobrenome] = useState(dados.sobrenome)
+    const [cpf, setCpf] = useState(dados.cpf)
+    const [promocoes, setPromocoes] = useState(dados.promocoes)
+    const [novidades, setNovidades] = useState(dados.novidades)
     const validacoes = useContext(ValidacoesCadastro)
 
     const [erros, validarCampos, possoEnviar] = useErros(validacoes)
@@ -24,13 +24,16 @@ function DadosPessoais({ aoEnviar }) {   // Destructuring do props
                 value={nome}
                 onChange={(event) => {
                     setNome(event.target.value)
+                    validarCampos(event)
                 }}
-                onBlur={validarCampos}
+                // onBlur={validarCampos}
                 error={!erros.nome.valido}
                 helperText={erros.nome.texto}
                 id='nome'
                 name='nome'
                 label='Nome'
+                type='text'
+                required
                 variant='outlined'
                 fullWidth
                 margin='normal'
@@ -40,12 +43,14 @@ function DadosPessoais({ aoEnviar }) {   // Destructuring do props
                 value={sobrenome}
                 onChange={event => {
                     setSobrenome(event.target.value)
+                    validarCampos(event)
                 }}
-                onBlur={validarCampos}
+                // onBlur={validarCampos}
                 error={!erros.sobrenome.valido}
                 helperText={erros.sobrenome.texto}
                 name='sobrenome'
                 id='sobrenome'
+                type='text'
                 label='Sobrenome'
                 variant='outlined'
                 fullWidth
@@ -60,13 +65,15 @@ function DadosPessoais({ aoEnviar }) {   // Destructuring do props
                         temp = temp.substring(0, 11)
                     }
                     setCpf(temp)
+                    validarCampos(event)
                 }}
-                onBlur={validarCampos}
+                // onBlur={validarCampos}
                 error={!erros.cpf.valido}
                 helperText={erros.cpf.texto}
                 id='CPF'
                 label='CPF'
                 name='cpf'
+                required
                 variant='outlined'
                 fullWidth
                 margin='normal'
@@ -86,10 +93,21 @@ function DadosPessoais({ aoEnviar }) {   // Destructuring do props
                 }} name='Novidades' checked={novidades} color='primary' />} />
 
             <Button
+                onClick={() => {
+                    aoVoltar( { nome, sobrenome, cpf, novidades, promocoes } )
+                }}
+                variant="contained"
+                color='secondary'
+            >Voltar
+            </Button>
+
+            <Button
                 variant="contained"
                 color='primary'
                 type='submit'>Próximo
             </Button>
+
+
         </form>
     )
 }

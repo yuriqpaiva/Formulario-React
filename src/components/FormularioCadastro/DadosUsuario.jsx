@@ -1,16 +1,18 @@
 import { TextField, Button } from '@material-ui/core'
 import React from 'react'
+
 import { useContext } from 'react';
 import { useState } from 'react';
 import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
 import useErros from '../../hooks/useErros';
 
-function DadosUsuario({ aoEnviar }) {
-
-    const [ email, setEmail ] = useState('')
-    const [ senha, setSenha ] = useState('')
+function DadosUsuario({ aoEnviar, dados }) {
+    
+    const [ email, setEmail ] = useState(dados.email)
+    const [ senha, setSenha ] = useState(dados.senha)
     const validacoes = useContext(ValidacoesCadastro)
     const [erros, validarCampos, possoEnviar] = useErros(validacoes)
+
 
     return (
         <form onSubmit={(event) => {
@@ -18,6 +20,7 @@ function DadosUsuario({ aoEnviar }) {
             if (possoEnviar()) {
                 aoEnviar({email, senha})
             }
+            
         }}>
             <TextField
                 value={email}
@@ -29,7 +32,7 @@ function DadosUsuario({ aoEnviar }) {
                 name='email'
                 label='E-mail'
                 type='email'
-                // required
+                required
                 variant='outlined'
                 fullWidth
                 margin='normal'
@@ -39,15 +42,16 @@ function DadosUsuario({ aoEnviar }) {
                 value={senha}
                 onChange={(event) => {
                     setSenha(event.target.value)
+                    validarCampos(event)
                 }}
-                onBlur={validarCampos}
+                // onBlur={validarCampos}
                 error={!erros.senha.valido}
                 helperText={erros.senha.texto}
                 id='senha'
                 name='senha'
                 label='Senha'
                 type='password'
-                // required
+                required
                 variant='outlined'
                 fullWidth
                 margin='normal'

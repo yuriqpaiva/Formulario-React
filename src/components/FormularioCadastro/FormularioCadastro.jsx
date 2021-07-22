@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import DadosEntrega from './DadosEntrega';
 import DadosPessoais from './DadosPessoais';
 import DadosUsuario from './DadosUsuario';
+import data from '../../data/dados'
 
 function FormularioCadastro({ aoEnviar }) {
     const [etapaAtual, setEtapaAtual] = useState(0)
-    const [dadosColetados, setDados] = useState({})
+    const [dadosColetados, setDados] = useState(data)
 
     // useEffect funciona com as funções do ciclo de vida do class Component
     useEffect(() => {
@@ -17,19 +18,24 @@ function FormularioCadastro({ aoEnviar }) {
     })
 
     const formulario = [
-        <DadosUsuario aoEnviar={coletarDados} />,
-        <DadosPessoais aoEnviar={coletarDados} />,
-        <DadosEntrega aoEnviar={coletarDados} />,
+        <DadosUsuario aoEnviar={coletarDados} dados={dadosColetados} />,
+        <DadosPessoais aoEnviar={coletarDados} aoVoltar={voltar} dados={dadosColetados} />,
+        <DadosEntrega aoEnviar={coletarDados} aoVoltar={voltar} dados={dadosColetados} />,
         <Typography variant='h5'>Obrigado pelo Cadastro!</Typography>
     ];
 
     function coletarDados(dados) {
-        setDados({ ...dadosColetados, ...dados })    // O setState é assíncrono
+        setDados({...dadosColetados ,...dados })    // O setState é assíncrono
         proximo()
     }
 
     function proximo() {
         setEtapaAtual(etapaAtual + 1)
+    }
+
+    function voltar(dados) {
+        setDados({...dadosColetados ,...dados })
+        setEtapaAtual(etapaAtual - 1)
     }
 
     return (

@@ -1,28 +1,42 @@
 import { TextField, Button } from '@material-ui/core'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ValidacoesCadastro from '../../contexts/ValidacoesCadastro';
+import useErros from '../../hooks/useErros';
 
-function DadosEntrega({ aoEnviar }) {
+function DadosEntrega({ aoEnviar, aoVoltar, dados }) {
 
-    const [cep, setCep] = useState('')
-    const [endereco, setEndereco] = useState('')
-    const [numero, setNumero] = useState('')
-    const [estado, setEstado] = useState('')
-    const [cidade, setCidade] = useState('')
-
+    const [cep, setCep] = useState(dados.cep)
+    const [endereco, setEndereco] = useState(dados.endereco)
+    const [numero, setNumero] = useState(dados.numero)
+    const [estado, setEstado] = useState(dados.estado)
+    const [cidade, setCidade] = useState(dados.cidade)
+    const validacoes = useContext(ValidacoesCadastro)
+    const [erros, validarCampos, possoEnviar] = useErros(validacoes)
     return (
         <form onSubmit={(e) => {
             e.preventDefault()
-            aoEnviar({ cep, endereco, numero, estado, cidade })
+            if (possoEnviar()) {
+                aoEnviar({ cep, endereco, numero, estado, cidade })
+            }
         }}>
             <TextField
                 value={cep}
                 onChange={(event) => {
-                    setCep(event.target.value)
+                    let temp = event.target.value
+                    if (temp.length >= 8) {
+                        temp = temp.substring(0, 8)
+                    }
+                    setCep(temp)
+                    validarCampos(event)
                 }}
                 id='cep'
                 label='CEP'
-                type='number'
+                name='cep'
+                error={!erros.cep.valido}
+                helperText={erros.cep.texto}
+                required
+                type='text'
                 variant='outlined'
                 margin='normal'
             />
@@ -58,7 +72,7 @@ function DadosEntrega({ aoEnviar }) {
                     setEstado(event.target.value)
                 }}
                 id='Estado'
-                label='estado'
+                label='Estado'
                 type='text'
                 variant='outlined'
                 margin='normal'
@@ -70,12 +84,20 @@ function DadosEntrega({ aoEnviar }) {
                     setCidade(event.target.value)
                 }}
                 id='Cidade'
-                label='cidade'
+                label='Cidade'
                 type='text'
                 variant='outlined'
                 margin='normal'
             />
-
+            <Button
+                onClick={() => {
+                    aoVoltar({ cep, endereco, numero, estado, cidade })
+                }}
+                variant="contained"
+                color='secondary'
+                fullWidth
+            >Voltar
+            </Button>
             <Button
                 variant="contained"
                 color='primary'
