@@ -14,4 +14,5 @@ npm start
 O projeto foi desenvolvido durante um curso da Alura, com algumas implementações feitas por mim.
 
 A aplicação se trata de um formulário que possui vários passos até a finalização de um cadastro. No final, chama um função que imprime no console todos os dados registrados.
+
 ![Imagem-aplicacao](/img-app.png)
